@@ -283,13 +283,13 @@
     if (![scheme isEqualToString:@"http"] && ![scheme isEqualToString:@"https"])
         return;
     
-    NSURL *openInURL = [NSURL URLWithString:[NSString stringWithFormat:@"ddgQuickLink://%@", url.absoluteString]];
+    NSURL *openInURL = [NSURL URLWithString:[NSString stringWithFormat:@"ddgquicklink://%@", url.absoluteString]];
     [TGOpenInBrowserItem openURL:openInURL];
 }
 
 + (NSString *)defaultURLScheme
 {
-    return @"ddgQuickLink";
+    return @"ddgquicklink";
 }
 
 @end
