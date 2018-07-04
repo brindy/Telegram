@@ -22,6 +22,9 @@
 
 @end
 
+@interface TGOpenInDuckDuckGoItem : TGOpenInBrowserItem
+
+@end
 
 @interface TGOpenInBrowserItem ()
 
@@ -41,7 +44,8 @@
             [TGOpenInChromeItem class],
             [TGOpenInFirefoxItem class],
             [TGOpenInOperaItem class],
-            [TGOpenInYandexItem class]
+            [TGOpenInYandexItem class],
+            [TGOpenInDuckDuckGoItem class]
         ];
     });
     return appItems;
@@ -255,6 +259,37 @@
 + (NSString *)defaultURLScheme
 {
     return @"yandexbrowser-open-url";
+}
+
+@end
+
+@implementation TGOpenInDuckDuckGoItem
+
+- (NSString *)title
+{
+    return @"DuckDuckGo";
+}
+
+- (NSInteger)storeIdentifier
+{
+    return 663592361;
+}
+
+- (void)performOpenIn
+{
+    NSURL *url = (NSURL *)self.object;
+    NSString *scheme = [url.scheme lowercaseString];
+    
+    if (![scheme isEqualToString:@"http"] && ![scheme isEqualToString:@"https"])
+        return;
+    
+    NSURL *openInURL = [NSURL URLWithString:[NSString stringWithFormat:@"ddgQuickLink://%@", url.absoluteString]];
+    [TGOpenInBrowserItem openURL:openInURL];
+}
+
++ (NSString *)defaultURLScheme
+{
+    return @"ddgQuickLink";
 }
 
 @end
